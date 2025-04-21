@@ -59,4 +59,4 @@ if __name__ == '__main__':
     print("\n=== Testing Best Genome ===")
     for x1, x2, target in XOR_TABLE:
         output = top_genome.forward([x1, x2, 1.0])[0]
-        print(f" Input: {[x1, x2]} → Predicted: {output:.3f}   (target {target})")
+        print(f" Input: {[x1, x2, 1.0]} → Predicted: {output:.3f}   (target {target})")
