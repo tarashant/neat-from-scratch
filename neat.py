@@ -423,6 +423,27 @@ class Species:
             genome.fitness /= num_members
         return self.members
 
+    def linear_scale_fitness(self, c=1.5):
+        #TODO Add to config
+        fitnesses = [g.fitness for g in self.members]
+        f_avg = sum(fitnesses) / len(fitnesses)
+        f_max = max(fitnesses)
+        if f_max == f_avg:
+            for g in self.members:
+                g.fitness = 1.0
+            return self.members
+        a = (c - 1) * f_avg / (f_max - f_avg)
+        b = f_avg * (1 - a)
+        for g in self.members:
+            g.fitness = a * g.fitness + b
+        return self.members
+
+    def offset_fitness(self):
+        f_min = min(g.fitness for g in self.members)
+        for genome in self.members:
+            genome.fitness -= f_min + 1e-7
+        return self.members
+
     def rank(self):
         return sorted(self.members, key=lambda g: g.fitness, reverse=True)
 
@@ -619,6 +640,8 @@ class Population:
              return
 
         for species in living_species:
+            species.linear_scale_fitness()
+            species.offset_fitness()
             species.adjust_fitness()
             ranked_members = species.rank()
             species_total_fitness = sum(g.fitness for g in species.members)
@@ -626,14 +649,7 @@ class Population:
             total_average_fitness += species_average_fitness
             species_data.append({'species': species, 'avg_fitness': species_average_fitness, 'ranked': ranked_members})
 
-        if total_average_fitness <= 0:
-             print(f"Warning: Total average fitness ({total_average_fitness:.2f}) is zero or negative. Using equal allocation.")
-             num_species = len(species_data)
-             offspring_per_species = self.size // num_species
-             remainder = self.size % num_species
-             for i, data in enumerate(species_data):
-                 data['num_offspring'] = offspring_per_species + (1 if i < remainder else 0)
-        else:
+        if total_average_fitness > 0:
             total_allocated = 0
             for data in species_data:
                  proportion = data['avg_fitness'] / total_average_fitness
@@ -648,6 +664,13 @@ class Population:
                      idx_to_adjust = i % len(species_data)
                      species_data[idx_to_adjust]['num_offspring'] += 1 if discrepancy > 0 else -1
                      species_data[idx_to_adjust]['num_offspring'] = max(0, species_data[idx_to_adjust]['num_offspring'])
+        else:
+            print(f"Warning: Total average adjusted fitness ({total_average_fitness:.2f}) is zero or negative. Using equal allocation.")
+            num_species = len(species_data)
+            offspring_per_species = self.size // num_species
+            remainder = self.size % num_species
+            for i, data in enumerate(species_data):
+                data['num_offspring'] = offspring_per_species + (1 if i < remainder else 0)
 
         for data in species_data:
             species = data['species']
@@ -710,6 +733,4 @@ class Population:
         with open(f'{save_path}{filename}.pkl', 'wb') as f:
             pkl.dump(genome, f)
         print(f"Top genome saved to {filename}.pkl")
-
-
 
