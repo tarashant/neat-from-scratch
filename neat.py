@@ -86,6 +86,10 @@ class NEATConfig:
         The name of the activation function used for hidden nodes (e.g., 'relu').
     out_node_activation : str
         The name of the activation function used for output nodes (e.g., 'sigmoid').
+    max_weight : float
+        The maximum weight for the hidden nodes.
+    min_weight : float
+        The minimum weight for the hidden nodes.
     add_node_mutation_prob : float
         The probability of adding a new node during mutation.
     add_conn_mutation_prob : float
@@ -121,6 +125,8 @@ class NEATConfig:
             genome_shape=(1,1),
             hid_node_activation='relu',
             out_node_activation='sigmoid',
+            max_weight=1.0,
+            min_weight=-1.0,
             add_node_mutation_prob=0.05,
             add_conn_mutation_prob=0.08,
             num_elites=1,
@@ -145,6 +151,8 @@ class NEATConfig:
         self.reset_prob = reset_prob
         self.hid_node_activation = hid_node_activation
         self.out_node_activation = out_node_activation
+        self.max_weight = max_weight
+        self.min_weight = min_weight
         self.species_threshold = species_threshold
         self.population_size = population_size
         self.c1 = c1
@@ -769,14 +777,14 @@ class Genome:
 
             # If loop finishes without adding, max_try was reached or no valid connections possible
 
-    def weight_mutation(self, sigma=0.1, perturb_prob=0.8, reset_prob=0.1):
+    def weight_mutation(self, sigma=0.1, perturb_prob=0.8, reset_prob=0.1, min_weight=-1.0, max_weight=1.0):
         """
         Applies weight mutations to the connections in the genome.
 
         Each connection has a chance (`perturb_prob`) to be mutated. If selected,
         it has a further chance (`reset_prob`) to have its weight completely reset
         to a new random value. Otherwise, its weight is perturbed by adding
-        Gaussian noise (mean 0, std dev `sigma`). Weights are clamped to [-1, 1].
+        Gaussian noise (mean 0, std dev `sigma`). Weights are clamped to [min_weight, max_weight].
 
         Parameters
         ----------
@@ -789,11 +797,17 @@ class Genome:
         reset_prob : float, optional
             Probability of resetting the weight (given perturbation occurs). Defaults to 0.1.
             Overridden by `self.config.reset_prob` if available.
+        max_weight : float, optional
+            Max weight reachable by the connection. Defaults to 1.0.
+        min_weight : float, optional
+            Min weight reachable by the connection. Defaults to -1.0.
         """
         # Use parameters from config if available
         sigma = self.config.sigma if self.config is not None else sigma
         perturb_prob = self.config.perturb_prob if self.config is not None else perturb_prob
         reset_prob = self.config.reset_prob if self.config is not None else reset_prob
+        min_weight = self.config.min_weight if self.config is not None else min_weight
+        max_weight = self.config.max_weight if self.config is not None else max_weight
 
         # Iterate through all connections in the genome
         for conn in self.connections.values():
@@ -807,7 +821,7 @@ class Genome:
                     # Perturb weight by adding Gaussian noise
                     conn.weight += gauss(0, sigma)
                 # Clamp the weight to stay within the [-1, 1] range
-                conn.weight = max(-1.0, min(1.0, conn.weight))
+                conn.weight = max(-min_weight, min(max_weight, conn.weight))
 
     def mutate(self):
         """
