@@ -821,7 +821,7 @@ class Genome:
                     # Perturb weight by adding Gaussian noise
                     conn.weight += gauss(0, sigma)
                 # Clamp the weight to stay within the [-1, 1] range
-                conn.weight = max(-min_weight, min(max_weight, conn.weight))
+                conn.weight = max(min_weight, min(max_weight, conn.weight))
 
     def mutate(self):
         """
