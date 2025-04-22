@@ -272,7 +272,7 @@ class Genome:
                     conn.weight = uniform(-1, 1)
                 else:
                     conn.weight += gauss(0, sigma)
-                #conn.weight = max(-1.0, min(1.0, conn.weight))
+                conn.weight = max(-1.0, min(1.0, conn.weight))
 
     def mutate(self):
         self.weight_mutation()
