@@ -47,10 +47,6 @@ def run_xor_experiment(num_gens=100, pop_size=100):
 
         population.reproduce()
 
-        population.species = []
-        for genome in population.members:
-            population.speciate(genome)
-
     top_genome = population.get_top_genome()
     return top_genome, avg_fitness, top_fitness
 
